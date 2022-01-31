@@ -12,7 +12,6 @@ import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 
 app.get("/", (req, res) => {
-    throw new Error("error")
     res.send("Working")
 })
 app.use(notFoundMiddleware)
