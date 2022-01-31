@@ -1,23 +1,37 @@
 // setting "type": "module" in package.json allowed us to be able to use ES6 imports instead of regular JS.. i.e from const -> import
 
-
 import express from "express";
-import dotenv from "dotenv"
-dotenv.config()
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
-const port = process.env.PORT || 500
+const port = process.env.PORT || 500;
+import connectDB from "./db/connect.js";
 
 // middleware
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 
-app.get("/", (req, res) => {
-    res.send("Working")
-})
-app.use(notFoundMiddleware)
-app.use(errorHandlerMiddleware)
+// router
+import authRouter from "./routes/authRoutes.js"
 
+app.use(express.json())
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-})
+app.use("/api/v1/auth", authRouter)
+
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
+
+const start = async () => {
+  try {
+    await connectDB(process.env.MONGO_URI).then(() =>
+      console.log("DB CONNECTED!!!")
+    );
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+start()
