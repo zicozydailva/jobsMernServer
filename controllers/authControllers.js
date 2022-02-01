@@ -5,12 +5,12 @@ const register = async (req, res) => {
 
 
 const login = async (req, res) => {
-    res.send("register")   
+    res.send("login")   
    }
 
 
 const updateUser = async (req, res) => {
-    res.send("register")   
+    res.send("updateUser")   
    }
 
 export {register, login, updateUser}
