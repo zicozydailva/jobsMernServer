@@ -13,10 +13,12 @@ import errorHandlerMiddleware from "./middleware/error-handler.js";
 
 // router
 import authRouter from "./routes/authRoutes.js"
+import jobRouter from "./routes/jobRouter.js"
 
 app.use(express.json())
 
 app.use("/api/v1/auth", authRouter)
+app.use("/api/v1/jobs", jobRouter)
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
