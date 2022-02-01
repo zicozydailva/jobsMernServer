@@ -7,6 +7,7 @@ const app = express();
 const port = process.env.PORT || 500;
 import connectDB from "./db/connect.js";
 import "express-async-errors"
+// import cors from "cors"
 
 // middleware
 import notFoundMiddleware from "./middleware/not-found.js";
@@ -17,9 +18,15 @@ import authRouter from "./routes/authRoutes.js"
 import jobRouter from "./routes/jobRouter.js"
 
 app.use(express.json())
-
+// NOTE: you don't need the cors middleware when using proxy setup on package.json
+// app.use(cors())
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/jobs", jobRouter)
+
+
+app.get("/api/v1", (req, res) => {
+  res.json("Welcome!!!")
+})
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
