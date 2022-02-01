@@ -6,6 +6,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 500;
 import connectDB from "./db/connect.js";
+import "express-async-errors"
 
 // middleware
 import notFoundMiddleware from "./middleware/not-found.js";
