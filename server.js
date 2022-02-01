@@ -7,6 +7,7 @@ const app = express();
 const port = process.env.PORT || 500;
 import connectDB from "./db/connect.js";
 import "express-async-errors"
+import morgan from "morgan"
 // import cors from "cors"
 
 // middleware
@@ -17,6 +18,9 @@ import errorHandlerMiddleware from "./middleware/error-handler.js";
 import authRouter from "./routes/authRoutes.js"
 import jobRouter from "./routes/jobRouter.js"
 
+if(process.env.NODE_ENV !== "production") {
+  app.use(morgan("dev"))
+}
 app.use(express.json())
 // NOTE: you don't need the cors middleware when using proxy setup on package.json
 // app.use(cors())
